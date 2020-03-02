@@ -21,6 +21,8 @@ namespace WebTestApp.Controllers
         // GET: Addresses
         public async Task<IActionResult> Index()
         {
+            ViewData["adresses"] = _context.Address.ToList();
+           
             return View(await _context.Address.ToListAsync());
         }
 
@@ -45,6 +47,9 @@ namespace WebTestApp.Controllers
         // GET: Addresses/Create
         public IActionResult Create()
         {
+            ViewData["Customers"] = _context.Customer.ToList();
+            ViewData["countries"] = _context.Country.ToList();
+
             return View();
         }
 
@@ -53,7 +58,7 @@ namespace WebTestApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,ClientId,StreetAddress,City,Zip,CountryId")] Address address)
+        public async Task<IActionResult> Create([Bind("Id,CustomerId,StreetAddress,City,Zip,CountryId")] Address address)
         {
             if (ModelState.IsValid)
             {
@@ -77,6 +82,8 @@ namespace WebTestApp.Controllers
             {
                 return NotFound();
             }
+            ViewData["Customers"] = _context.Customer.ToList();
+            ViewData["countries"] = _context.Country.ToList();
             return View(address);
         }
 
@@ -85,7 +92,7 @@ namespace WebTestApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,ClientId,StreetAddress,City,Zip,CountryId")] Address address)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,CustomerId,StreetAddress,City,Zip,CountryId")] Address address)
         {
             if (id != address.Id)
             {

@@ -34,42 +34,41 @@ namespace WebTestApp.Controllers
        
             public async Task<IActionResult> Index()
             {
-                return View(from c in _context.Customer
-                            join o in _context.Address on c.Id equals o.ClientId
-                            group new { c, o } by new { c.Id, c.Name, c.Email } into g
-                            select new CustomerWithAddress
-                            {
-                                Id = g.Key.Id,
-                                Name = g.Key.Name,
-                                Email = g.Key.Email,
-                                QuantityAddresses = g.Count(),
-                            }
-
-                          );
+                var customerAddresses = from c in _context.Customer
+                                        join o in _context.Address on c.Id equals o.CustomerId
+                                        group new { c, o } by new { c.Id, c.Name, c.Email } into g
+                                        select new CustomerWithAddress
+                                        {
+                                            Id = g.Key.Id,
+                                            Name = g.Key.Name,
+                                            Email = g.Key.Email,
+                                            QuantityAddresses = g.Count(),
+                                        };
+                return View(await customerAddresses.ToListAsync());
                 //return View(await _context.Customer.ToListAsync());
             }
 
             // GET: Customers/Details/5
-            public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            public async Task<IActionResult> Details(int id)
+                {
+                    var customer = await _context.Customer
+                        .FirstOrDefaultAsync(m => m.Id == id);
+                    if (customer == null)
+                    {
+                        return NotFound();
+                    }
+           
+                    var addresses = from a in _context.Address where a.CustomerId == id select a;
+                    ViewData["adresses"] = await addresses.ToListAsync();
+         
 
-            var customer = await _context.Customer
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (customer == null)
-            {
-                return NotFound();
-            }
-
-            return View(customer);
-        }
+                    return View(customer);
+                }
 
         // GET: Customers/Create
         public IActionResult Create()
         {
+           
             return View();
         }
 
@@ -154,6 +153,8 @@ namespace WebTestApp.Controllers
             {
                 return NotFound();
             }
+
+         
 
             return View(customer);
         }
