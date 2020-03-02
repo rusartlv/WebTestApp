@@ -19,7 +19,9 @@ namespace WebTestApp.Models
 
 
         public int Id { get; set; }
+        [Required(ErrorMessage = "Не указано имя")]
         public string Name { get; set; }
+        [Required(ErrorMessage = "Не указан электронный адрес")]
         public string Email { get; set; }
 
         [Display(Name = "Birth Date")]
