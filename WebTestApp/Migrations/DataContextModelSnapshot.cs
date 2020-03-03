@@ -28,7 +28,8 @@ namespace WebTestApp.Migrations
 
                     b.Property<string>("City")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(30)")
+                        .HasMaxLength(30);
 
                     b.Property<int>("CountryId")
                         .HasColumnType("int");
@@ -38,10 +39,12 @@ namespace WebTestApp.Migrations
 
                     b.Property<string>("StreetAddress")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(70)")
+                        .HasMaxLength(70);
 
-                    b.Property<int>("Zip")
-                        .HasColumnType("int");
+                    b.Property<string>("Zip")
+                        .HasColumnType("nvarchar(8)")
+                        .HasMaxLength(8);
 
                     b.HasKey("Id");
 
@@ -85,7 +88,8 @@ namespace WebTestApp.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(20)")
+                        .HasMaxLength(20);
 
                     b.HasKey("Id");
 
