@@ -99,7 +99,7 @@ namespace WebTestApp.Migrations
             modelBuilder.Entity("WebTestApp.Models.Address", b =>
                 {
                     b.HasOne("WebTestApp.Models.Customer", null)
-                        .WithMany("Orders")
+                        .WithMany("Address")
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

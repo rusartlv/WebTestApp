@@ -23,7 +23,7 @@ namespace WebTestApp.Controllers
         {
             ViewData["adresses"] = _context.Address.ToList();
            
-            return View(await _context.Address.ToListAsync());
+            return View();
         }
 
         // GET: Addresses/Details/5
@@ -47,7 +47,8 @@ namespace WebTestApp.Controllers
         // GET: Addresses/Create
         public IActionResult Create()
         {
-            ViewData["Customers"] = _context.Customer.ToList();
+            //TODO to c
+            ViewData["customers"] = _context.Customer.ToList();
             ViewData["countries"] = _context.Country.ToList();
 
             return View();
@@ -82,41 +83,21 @@ namespace WebTestApp.Controllers
             {
                 return NotFound();
             }
-            ViewData["Customers"] = _context.Customer.ToList();
+            //TODO to c
+            ViewData["customers"] = _context.Customer.ToList();
             ViewData["countries"] = _context.Country.ToList();
+         
             return View(address);
         }
 
-        // POST: Addresses/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,CustomerId,StreetAddress,City,Zip,CountryId")] Address address)
+        public async Task<IActionResult> Edit([Bind("Id,CustomerId,StreetAddress,City,Zip,CountryId")] Address address)
         {
-            if (id != address.Id)
-            {
-                return NotFound();
-            }
-
             if (ModelState.IsValid)
             {
-                try
-                {
-                    _context.Update(address);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!AddressExists(address.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                _context.Update(address);
+                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(address);
@@ -130,8 +111,7 @@ namespace WebTestApp.Controllers
                 return NotFound();
             }
 
-            var address = await _context.Address
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var address = await _context.Address.FirstOrDefaultAsync(m => m.Id == id);
             if (address == null)
             {
                 return NotFound();
@@ -149,11 +129,6 @@ namespace WebTestApp.Controllers
             _context.Address.Remove(address);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
-        }
-
-        private bool AddressExists(int id)
-        {
-            return _context.Address.Any(e => e.Id == id);
         }
     }
 }

@@ -33,8 +33,7 @@ namespace WebTestApp.Controllers
                 return NotFound();
             }
 
-            var country = await _context.Country
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var country = await _context.Country.FirstOrDefaultAsync(m => m.Id == id);
             if (country == null)
             {
                 return NotFound();

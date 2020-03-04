@@ -30,45 +30,42 @@ namespace WebTestApp.Controllers
             _context = context;
         }
 
-        // GET: Customers
+   
        
-            public async Task<IActionResult> Index()
-            {
-                var customerAddresses = from c in _context.Customer
-                                        join o in _context.Address on c.Id equals o.CustomerId
-                                        group new { c, o } by new { c.Id, c.Name, c.Email } into g
-                                        select new CustomerWithAddress
-                                        {
-                                            Id = g.Key.Id,
-                                            Name = g.Key.Name,
-                                            Email = g.Key.Email,
-                                            QuantityAddresses = g.Count(),
-                                        };
-                return View(await customerAddresses.ToListAsync());
-                //return View(await _context.Customer.ToListAsync());
-            }
+        public async Task<IActionResult> Index()
+        {
+            var customerAddresses = from c in _context.Customer
+                                select new CustomerWithAddress
+                                {
+                                    Id = c.Id,
+                                    Name = c.Name,
+                                    Email = c.Email,
+                                    BirthDate = c.BirthDate,
+                                    CustomerGender = c.CustomerGender,
+                                    QuantityAddresses = c.Address.Count
+                                };
+            return View(await customerAddresses.ToListAsync());
+        }
 
             // GET: Customers/Details/5
-            public async Task<IActionResult> Details(int id)
-                {
-                    var customer = await _context.Customer
-                        .FirstOrDefaultAsync(m => m.Id == id);
-                    if (customer == null)
-                    {
-                        return NotFound();
-                    }
+        public async Task<IActionResult> Details(int id)
+        {
+            var customer = await _context.Customer.FirstOrDefaultAsync(m => m.Id == id);
+            if (customer == null)
+            {
+                return NotFound();
+            }
            
-                    var addresses = from a in _context.Address where a.CustomerId == id select a;
-                    ViewData["adresses"] = await addresses.ToListAsync();
+            var addresses = from a in _context.Address where a.CustomerId == id select a;
+            ViewData["adresses"] = await addresses.ToListAsync();
          
 
-                    return View(customer);
-                }
+            return View(customer);
+        }
 
         // GET: Customers/Create
         public IActionResult Create()
         {
-           
             return View();
         }
 
@@ -95,7 +92,7 @@ namespace WebTestApp.Controllers
             {
                 return NotFound();
             }
-
+            //TODO
             var customer = await _context.Customer.FindAsync(id);
             if (customer == null)
             {
@@ -111,6 +108,7 @@ namespace WebTestApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Email,BirthDate,CustomerGender")] Customer customer)
         {
+            //TODO delete 
             if (id != customer.Id)
             {
                 return NotFound();
@@ -153,8 +151,7 @@ namespace WebTestApp.Controllers
             {
                 return NotFound();
             }
-
-         
+        
 
             return View(customer);
         }

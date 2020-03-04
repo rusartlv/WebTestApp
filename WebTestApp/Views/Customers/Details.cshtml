@@ -10,28 +10,28 @@
     <h4>Customer</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Name)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Name)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Email)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Email)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.BirthDate)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.BirthDate)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.CustomerGender)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.CustomerGender)
         </dd>
     </dl>
@@ -47,17 +47,17 @@
             <div class="card">
                 <div class="card-body">
                     <div>
-                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                        <h5 class="card-title">
+                            <p>CustomerID - @Html.DisplayFor(modelItem => item.CustomerId)</p>
+                            <p>CountryID - @Html.DisplayFor(modelItem => item.CountryId)</p>
+                        </h5>
+                        <p class="card-text">@Html.DisplayFor(modelItem => item.StreetAddress)</p>
+                        <p class="card-text">@Html.DisplayFor(modelItem => item.City)</p>
+                        <p class="card-text">@Html.DisplayFor(modelItem => item.Zip)</p>
                     </div>
-                    <h5 class="card-title">
-                        @Html.DisplayFor(modelItem => item.CustomerId)
-                        @Html.DisplayFor(modelItem => item.CountryId)
-                    </h5>
-                    <p class="card-text">@Html.DisplayFor(modelItem => item.StreetAddress)</p>
-                    <p class="card-text">@Html.DisplayFor(modelItem => item.City)</p>
-                    <p class="card-text">@Html.DisplayFor(modelItem => item.Zip)</p>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                 </div>
             </div>
         </div>
