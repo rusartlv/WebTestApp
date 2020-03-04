@@ -13,7 +13,7 @@ namespace WebTestApp.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -26,8 +26,8 @@ namespace WebTestApp.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(nullable: true),
-                    Email = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(maxLength: 20, nullable: false),
+                    Email = table.Column<string>(nullable: false),
                     BirthDate = table.Column<DateTime>(nullable: false),
                     CustomerGender = table.Column<int>(nullable: false)
                 },
@@ -42,12 +42,11 @@ namespace WebTestApp.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ClientId = table.Column<int>(nullable: false),
-                    StreetAddress = table.Column<string>(nullable: true),
-                    City = table.Column<string>(nullable: true),
-                    Zip = table.Column<int>(nullable: false),
-                    CountryId = table.Column<int>(nullable: false),
-                    CustomerId = table.Column<int>(nullable: true)
+                    CustomerId = table.Column<int>(nullable: false),
+                    StreetAddress = table.Column<string>(maxLength: 70, nullable: false),
+                    City = table.Column<string>(maxLength: 30, nullable: false),
+                    Zip = table.Column<string>(maxLength: 8, nullable: true),
+                    CountryId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -57,7 +56,7 @@ namespace WebTestApp.Migrations
                         column: x => x.CustomerId,
                         principalTable: "Customer",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(

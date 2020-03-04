@@ -92,7 +92,7 @@ namespace WebTestApp.Controllers
             {
                 return NotFound();
             }
-            //TODO
+          
             var customer = await _context.Customer.FindAsync(id);
             if (customer == null)
             {
@@ -108,7 +108,7 @@ namespace WebTestApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Email,BirthDate,CustomerGender")] Customer customer)
         {
-            //TODO delete 
+        
             if (id != customer.Id)
             {
                 return NotFound();

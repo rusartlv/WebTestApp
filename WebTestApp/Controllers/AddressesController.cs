@@ -47,7 +47,7 @@ namespace WebTestApp.Controllers
         // GET: Addresses/Create
         public IActionResult Create()
         {
-            //TODO to c
+            
             ViewData["customers"] = _context.Customer.ToList();
             ViewData["countries"] = _context.Country.ToList();
 
