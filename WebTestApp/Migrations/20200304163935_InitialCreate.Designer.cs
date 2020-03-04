@@ -10,7 +10,7 @@ using WebTestApp.Models;
 namespace WebTestApp.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200304132924_InitialCreate")]
+    [Migration("20200304163935_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
