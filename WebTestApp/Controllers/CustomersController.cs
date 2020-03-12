@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -14,8 +15,11 @@ namespace WebTestApp.Controllers
         public int Id { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
+        [Display(Name = "Date of Birth")]
         public DateTime BirthDate { get; set; }
+        [Display(Name = "Gender")]
         public Gender CustomerGender { get; set; }
+        [Display(Name = "Number of Addresses")]
         public int QuantityAddresses { get; set; }
 
 
@@ -34,7 +38,7 @@ namespace WebTestApp.Controllers
        
         public async Task<IActionResult> Index()
         {
-            var customerAddresses = from c in _context.Customer
+            var customerAddresses = from c in _context.Customers
                                 select new CustomerWithAddress
                                 {
                                     Id = c.Id,
@@ -42,7 +46,7 @@ namespace WebTestApp.Controllers
                                     Email = c.Email,
                                     BirthDate = c.BirthDate,
                                     CustomerGender = c.CustomerGender,
-                                    QuantityAddresses = c.Address.Count
+                                    QuantityAddresses = c.Addresses.Count
                                 };
             return View(await customerAddresses.ToListAsync());
         }
@@ -50,13 +54,13 @@ namespace WebTestApp.Controllers
             // GET: Customers/Details/5
         public async Task<IActionResult> Details(int id)
         {
-            var customer = await _context.Customer.FirstOrDefaultAsync(m => m.Id == id);
+            var customer = await _context.Customers.FirstOrDefaultAsync(m => m.Id == id);
             if (customer == null)
             {
                 return NotFound();
             }
            
-            var addresses = from a in _context.Address where a.CustomerId == id select a;
+            var addresses = from a in _context.Addresses where a.CustomerId == id select a;
             ViewData["adresses"] = await addresses.ToListAsync();
          
 
@@ -93,7 +97,7 @@ namespace WebTestApp.Controllers
                 return NotFound();
             }
           
-            var customer = await _context.Customer.FindAsync(id);
+            var customer = await _context.Customers.FindAsync(id);
             if (customer == null)
             {
                 return NotFound();
@@ -145,7 +149,7 @@ namespace WebTestApp.Controllers
                 return NotFound();
             }
 
-            var customer = await _context.Customer
+            var customer = await _context.Customers
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (customer == null)
             {
@@ -161,15 +165,15 @@ namespace WebTestApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var customer = await _context.Customer.FindAsync(id);
-            _context.Customer.Remove(customer);
+            var customer = await _context.Customers.FindAsync(id);
+            _context.Customers.Remove(customer);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool CustomerExists(int id)
         {
-            return _context.Customer.Any(e => e.Id == id);
+            return _context.Customers.Any(e => e.Id == id);
         }
     }
 }

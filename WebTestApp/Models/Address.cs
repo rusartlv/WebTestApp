@@ -10,21 +10,26 @@ namespace WebTestApp.Models
     public class Address
     {
         public int Id { get; set; }
-        [ForeignKey("Customer")]
+        
         public int CustomerId { get; set; }
-        public Customer Customer;
+        [ForeignKey("CustomerId")]
+        public virtual Customer Customer { get; set; }
 
-        [Required(ErrorMessage = "Не указана улица")]
-        [StringLength(70, MinimumLength = 3, ErrorMessage = "Длина строки должна быть от 3 до 70 символов")]
+        [Required]
+        [StringLength(70, MinimumLength = 3, ErrorMessage = "The limit of the line length in 3–70 characters")]
+        [Display(Name = "Street Address")]
         public string StreetAddress { get; set; }
 
-        [Required(ErrorMessage = "Не указан город")]
-        [StringLength(30, ErrorMessage = "Длина строки должна быть до 30 символов")]
+        [Required]
+        [StringLength(30, ErrorMessage = "Line length must be up to 30 characters")]
         public string City { get; set; }
 
-        [StringLength(8, ErrorMessage = "Длина строки должна быть до 8 символов")]
+        [StringLength(8, ErrorMessage = "Line length must be up to 8 characters")]
         public string Zip { get; set; }
+
+        [Required]
+        [ForeignKey("Country")]
         public int CountryId { get; set; }
-        public Country Country;
+        public Country Country { get;set; }
     }
 }

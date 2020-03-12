@@ -20,12 +20,12 @@ namespace WebTestApp.Models
 
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "Не указано имя")]
-        [StringLength(20, MinimumLength = 3, ErrorMessage = "Длина строки должна быть от 3 до 50 символов")]
+        [Required]
+        [StringLength(20, MinimumLength = 3, ErrorMessage = "The limit of the line length in 3–20 characters")]
         public string Name { get; set; }
 
-        [Required(ErrorMessage = "Не указан электронный адрес")]
-        [RegularExpression(@"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}", ErrorMessage = "Некорректный адрес")]
+        [Required]
+        [RegularExpression(@"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}", ErrorMessage = "Invalid address")]
         public string Email { get; set; }
 
         [Display(Name = "Birth Date")]
@@ -34,6 +34,6 @@ namespace WebTestApp.Models
 
         [Display(Name = "Gender")]
         public Gender CustomerGender { get; set; }
-        public List<Address> Address { get; set; }
+        public List<Address> Addresses { get; set; }
     }
 }

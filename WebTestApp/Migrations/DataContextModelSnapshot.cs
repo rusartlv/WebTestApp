@@ -48,9 +48,11 @@ namespace WebTestApp.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CountryId");
+
                     b.HasIndex("CustomerId");
 
-                    b.ToTable("Address");
+                    b.ToTable("Addresses");
                 });
 
             modelBuilder.Entity("WebTestApp.Models.Country", b =>
@@ -66,7 +68,7 @@ namespace WebTestApp.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Country");
+                    b.ToTable("Countries");
                 });
 
             modelBuilder.Entity("WebTestApp.Models.Customer", b =>
@@ -93,13 +95,19 @@ namespace WebTestApp.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Customer");
+                    b.ToTable("Customers");
                 });
 
             modelBuilder.Entity("WebTestApp.Models.Address", b =>
                 {
-                    b.HasOne("WebTestApp.Models.Customer", null)
-                        .WithMany("Address")
+                    b.HasOne("WebTestApp.Models.Country", "Country")
+                        .WithMany("Addresses")
+                        .HasForeignKey("CountryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WebTestApp.Models.Customer", "Customer")
+                        .WithMany("Addresses")
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

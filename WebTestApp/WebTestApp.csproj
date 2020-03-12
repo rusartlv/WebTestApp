@@ -15,15 +15,30 @@
     <Compile Remove="Migrations\20200303093818_InitialCreate.Designer.cs" />
     <Compile Remove="Migrations\20200304132924_InitialCreate.cs" />
     <Compile Remove="Migrations\20200304132924_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20200304163935_InitialCreate.cs" />
+    <Compile Remove="Migrations\20200304163935_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20200311104423_InitialCreate.cs" />
+    <Compile Remove="Migrations\20200311104423_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20200311131936_InitialCreate.cs" />
+    <Compile Remove="Migrations\20200311131936_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20200311150408_InitialCreate.cs" />
+    <Compile Remove="Migrations\20200311150408_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20200311182246_InitialCreate.cs" />
+    <Compile Remove="Migrations\20200311182246_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20200311190238_InitialCreate.cs" />
+    <Compile Remove="Migrations\20200311190238_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20200311192622_InitialCreate.cs" />
+    <Compile Remove="Migrations\20200311192622_InitialCreate.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="EntityFramework" Version="6.4.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.2">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.2">
       <PrivateAssets>all</PrivateAssets>

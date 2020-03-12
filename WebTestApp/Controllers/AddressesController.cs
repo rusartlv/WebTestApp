@@ -9,6 +9,7 @@ using WebTestApp.Models;
 
 namespace WebTestApp.Controllers
 {
+    
     public class AddressesController : Controller
     {
         private readonly DataContext _context;
@@ -21,9 +22,8 @@ namespace WebTestApp.Controllers
         // GET: Addresses
         public async Task<IActionResult> Index()
         {
-            ViewData["adresses"] = _context.Address.ToList();
-           
-            return View();
+            var addresses = await _context.Addresses.Include("Customer").Include("Country").ToListAsync();
+            return View(addresses);
         }
 
         // GET: Addresses/Details/5
@@ -34,7 +34,7 @@ namespace WebTestApp.Controllers
                 return NotFound();
             }
 
-            var address = await _context.Address
+            var address = await _context.Addresses
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (address == null)
             {
@@ -48,8 +48,8 @@ namespace WebTestApp.Controllers
         public IActionResult Create()
         {
             
-            ViewData["customers"] = _context.Customer.ToList();
-            ViewData["countries"] = _context.Country.ToList();
+            ViewData["customers"] = _context.Customers.ToList();
+            ViewData["countries"] = _context.Countries.ToList();
 
             return View();
         }
@@ -78,14 +78,14 @@ namespace WebTestApp.Controllers
                 return NotFound();
             }
 
-            var address = await _context.Address.FindAsync(id);
+            var address = await _context.Addresses.FindAsync(id);
             if (address == null)
             {
                 return NotFound();
             }
             //TODO to c
-            ViewData["customers"] = _context.Customer.ToList();
-            ViewData["countries"] = _context.Country.ToList();
+            ViewData["customers"] = _context.Customers.ToList();
+            ViewData["countries"] = _context.Countries.ToList();
          
             return View(address);
         }
@@ -111,7 +111,7 @@ namespace WebTestApp.Controllers
                 return NotFound();
             }
 
-            var address = await _context.Address.FirstOrDefaultAsync(m => m.Id == id);
+            var address = await _context.Addresses.FirstOrDefaultAsync(m => m.Id == id);
             if (address == null)
             {
                 return NotFound();
@@ -125,8 +125,8 @@ namespace WebTestApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var address = await _context.Address.FindAsync(id);
-            _context.Address.Remove(address);
+            var address = await _context.Addresses.FindAsync(id);
+            _context.Addresses.Remove(address);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

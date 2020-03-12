@@ -11,10 +11,12 @@ namespace WebTestApp.Models
         public DataContext(DbContextOptions<DataContext> options)
             : base(options)
         { }
-        public DbSet<Address> Address { get; set; }
+        public DbSet<Address> Addresses { get; set; }
 
-        public DbSet<Customer> Customer { get; set; }
+        public DbSet<Customer> Customers { get; set; }
 
-        public DbSet<Country> Country { get; set; }
+        public DbSet<Country> Countries { get; set; }
+
+
     }
 }
