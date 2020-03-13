@@ -141,7 +141,7 @@ namespace WebTestApp.Controllers
             var country = await _context.Countries.Include("Addresses").FirstOrDefaultAsync(m => m.Id == id);
             if (country.Addresses.Count() != 0)
             {
-                ModelState.AddModelError("CustomError", "Country cannot be deleted because it because they contain an address");
+                ModelState.AddModelError("CustomError", "Country cannot be deleted because it contain an address");
                 return View(country);
             }
             _context.Countries.Remove(country);
